@@ -1,0 +1,63 @@
+/usr/local/bin/HVite -A -D -T 1 -l * -a -b SENT-END -m -C /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/wav_config -H /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/HTK_AcousticModel-2012-07-24_16kHz_16bit_MFCC_O_D/macros -H /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/HTK_AcousticModel-2012-07-24_16kHz_16bit_MFCC_O_D/hmmdefs -m -t 250.0 150.0 1000.0 -I /tmp/5EaaioxdEY/words.mlf -i /tmp/5EaaioxdEY/aligned.out -S /tmp/5EaaioxdEY/fileList /data/svn-mirror/SpeechCorpus/Trunk/Lexicon/VoxForge/VoxForgeDict /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/HTK_AcousticModel-2012-07-24_16kHz_16bit_MFCC_O_D/tiedlist 
+
+HTK Configuration Parameters[11]
+  Module/Tool     Parameter                  Value
+#                 NUMCEPS                       12
+#                 CEPLIFTER                     22
+#                 NUMCHANS                      26
+#                 PREEMCOEF               0.970000
+#                 USEHAMMING                  TRUE
+#                 WINDOWSIZE         250000.000000
+#                 SAVEWITHCRC                 TRUE
+#                 SAVECOMPRESSED              TRUE
+#                 TARGETRATE         100000.000000
+#                 TARGETKIND          MFCC_D_N_Z_0
+#                 SOURCEFORMAT                 WAV
+
+Read 8294 physical / 9429 logical HMMs
+Label file will be used to align each file
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0001.wav
+Created lattice with 10 nodes / 9 arcs from label file
+SENT-END AUTHOR OF THE DANGER TRAIL PHILIP STEELS ETC SENT-END  ==  [1098 frames] -60.3724 [Ac=-66288.9 LM=0.0] (Act=12.7)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0002.wav
+Created lattice with 10 nodes / 9 arcs from label file
+SENT-END NOT AT THIS PARTICULAR CASE TOM APOLOGIZED WHITTEMORE SENT-END  ==  [1048 frames] -59.4840 [Ac=-62339.3 LM=0.0] (Act=16.4)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0003.wav
+Created lattice with 13 nodes / 12 arcs from label file
+SENT-END FOR THE TWENTIETH TIME THAT EVENING THE TWO MEN SHOOK HANDS SENT-END  ==  [1073 frames] -58.5256 [Ac=-62797.9 LM=0.0] (Act=17.6)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0004.wav
+Created lattice with 11 nodes / 10 arcs from label file
+SENT-END LORD BUT I'M GLAD TO SEE YOU AGAIN PHIL SENT-END  ==  [661 frames] -59.7563 [Ac=-39498.9 LM=0.0] (Act=17.2)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0005.wav
+Created lattice with 7 nodes / 6 arcs from label file
+SENT-END WILL WE EVER FORGET IT SENT-END  ==  [536 frames] -57.2409 [Ac=-30681.1 LM=0.0] (Act=10.2)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0006.wav
+Created lattice with 13 nodes / 12 arcs from label file
+SENT-END GOD BLESS EM I HOPE I'LL GO ON SEEING THEM FOREVER SENT-END  ==  [873 frames] -59.8950 [Ac=-52288.4 LM=0.0] (Act=15.0)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/a0007.wav
+Created lattice with 13 nodes / 12 arcs from label file
+SENT-END AND YOU ALWAYS WANT TO SEE IT IN THE SUPERLATIVE DEGREE SENT-END  ==  [602 frames] -63.0894 [Ac=-37979.8 LM=0.0] (Act=16.1)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/rb-35.wav
+Created lattice with 11 nodes / 10 arcs from label file
+SENT-END AND OPEN MY THESIS MIGHT SOON BE QUITE COMMON SENT-END  ==  [611 frames] -59.8332 [Ac=-36558.1 LM=0.0] (Act=10.6)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/rb-36.wav
+Created lattice with 18 nodes / 17 arcs from label file
+SENT-END IT IS HOWEVER LIKELY THAT ON MOBILE DEVICES WE WILL HAVE TO USE MORE RUDIMENTARY COMMANDS SENT-END  ==  [1173 frames] -61.8155 [Ac=-72509.6 LM=0.0] (Act=15.3)
+Aligning File: /tmp/5EaaioxdEY/anonymous-25571202-coo/rb-37.wav
+Created lattice with 15 nodes / 14 arcs from label file
+SENT-END LIKE GO UP ONE FOLDER OPEN THE FOLDER UNIVERSITY OR OPEN DOCUMENT THESIS SENT-END  ==  [1136 frames] -60.0736 [Ac=-68243.6 LM=0.0] (Act=17.0)
+
+HTK Configuration Parameters[11]
+  Module/Tool     Parameter                  Value
+                  NUMCEPS                       12
+                  CEPLIFTER                     22
+                  NUMCHANS                      26
+                  PREEMCOEF               0.970000
+                  USEHAMMING                  TRUE
+                  WINDOWSIZE         250000.000000
+                  SAVEWITHCRC                 TRUE
+                  SAVECOMPRESSED              TRUE
+                  TARGETRATE         100000.000000
+                  TARGETKIND          MFCC_D_N_Z_0
+                  SOURCEFORMAT                 WAV
+

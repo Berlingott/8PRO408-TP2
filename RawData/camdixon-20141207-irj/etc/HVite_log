@@ -1,0 +1,63 @@
+/usr/local/bin/HVite -A -D -T 1 -l * -a -b SENT-END -m -C /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/wav_config -H /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/HTK_AcousticModel-2012-07-24_16kHz_16bit_MFCC_O_D/macros -H /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/HTK_AcousticModel-2012-07-24_16kHz_16bit_MFCC_O_D/hmmdefs -m -t 250.0 150.0 1000.0 -I /tmp/S6iYx2BAuD/words.mlf -i /tmp/S6iYx2BAuD/aligned.out -S /tmp/S6iYx2BAuD/fileList /data/svn-mirror/SpeechCorpus/Trunk/Lexicon/VoxForge/VoxForgeDict /data/svn-mirror/Main/VoxForge/lib/Corpus/Quarantine/Submission/Audio/HTK_AcousticModel-2012-07-24_16kHz_16bit_MFCC_O_D/tiedlist 
+
+HTK Configuration Parameters[11]
+  Module/Tool     Parameter                  Value
+#                 NUMCEPS                       12
+#                 CEPLIFTER                     22
+#                 NUMCHANS                      26
+#                 PREEMCOEF               0.970000
+#                 USEHAMMING                  TRUE
+#                 WINDOWSIZE         250000.000000
+#                 SAVEWITHCRC                 TRUE
+#                 SAVECOMPRESSED              TRUE
+#                 TARGETRATE         100000.000000
+#                 TARGETKIND          MFCC_D_N_Z_0
+#                 SOURCEFORMAT                 WAV
+
+Read 8294 physical / 9429 logical HMMs
+Label file will be used to align each file
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/a0001.wav
+Created lattice with 10 nodes / 9 arcs from label file
+SENT-END AUTHOR OF THE DANGER TRAIL PHILIP STEELS ETC SENT-END  ==  [473 frames] -54.1626 [Ac=-25618.9 LM=0.0] (Act=11.4)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/a0002.wav
+Created lattice with 10 nodes / 9 arcs from label file
+SENT-END NOT AT THIS PARTICULAR CASE TOM APOLOGIZED WHITTEMORE SENT-END  ==  [586 frames] -53.1280 [Ac=-31133.0 LM=0.0] (Act=12.4)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/a0003.wav
+Created lattice with 13 nodes / 12 arcs from label file
+SENT-END FOR THE TWENTIETH TIME THAT EVENING THE TWO MEN SHOOK HANDS SENT-END  ==  [461 frames] -53.5188 [Ac=-24672.2 LM=0.0] (Act=19.8)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/a0004.wav
+Created lattice with 11 nodes / 10 arcs from label file
+SENT-END LORD BUT I'M GLAD TO SEE YOU AGAIN PHIL SENT-END  ==  [398 frames] -52.7305 [Ac=-20986.7 LM=0.0] (Act=12.1)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/a0005.wav
+Created lattice with 7 nodes / 6 arcs from label file
+SENT-END WILL WE EVER FORGET IT SENT-END  ==  [273 frames] -49.4753 [Ac=-13506.8 LM=0.0] (Act=8.8)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/a0006.wav
+Created lattice with 13 nodes / 12 arcs from label file
+SENT-END GOD BLESS EM I HOPE I'LL GO ON SEEING THEM FOREVER SENT-END  ==  [536 frames] -52.5432 [Ac=-28163.2 LM=0.0] (Act=14.4)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/rb-34.wav
+Created lattice with 12 nodes / 11 arcs from label file
+SENT-END COMMANDS LIKE GO TO THE FOLDER WITH MY UNIVERSITY DOCUMENTS SENT-END  ==  [511 frames] -56.3560 [Ac=-28797.9 LM=0.0] (Act=14.1)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/rb-35.wav
+Created lattice with 11 nodes / 10 arcs from label file
+SENT-END AND OPEN MY THESIS MIGHT SOON BE QUITE COMMON SENT-END  ==  [448 frames] -54.1526 [Ac=-24260.4 LM=0.0] (Act=9.6)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/rb-36.wav
+Created lattice with 18 nodes / 17 arcs from label file
+SENT-END IT IS HOWEVER LIKELY THAT ON MOBILE DEVICES WE WILL HAVE TO USE MORE RUDIMENTARY COMMANDS SENT-END  ==  [698 frames] -55.8985 [Ac=-39017.2 LM=0.0] (Act=17.9)
+Aligning File: /tmp/S6iYx2BAuD/camdixon-20141207-irj/rb-37.wav
+Created lattice with 15 nodes / 14 arcs from label file
+SENT-END LIKE GO UP ONE FOLDER OPEN THE UNIVERSITY FOLDER OR OPEN DOCUMENT THESIS SENT-END  ==  [723 frames] -55.2238 [Ac=-39926.8 LM=0.0] (Act=17.0)
+
+HTK Configuration Parameters[11]
+  Module/Tool     Parameter                  Value
+                  NUMCEPS                       12
+                  CEPLIFTER                     22
+                  NUMCHANS                      26
+                  PREEMCOEF               0.970000
+                  USEHAMMING                  TRUE
+                  WINDOWSIZE         250000.000000
+                  SAVEWITHCRC                 TRUE
+                  SAVECOMPRESSED              TRUE
+                  TARGETRATE         100000.000000
+                  TARGETKIND          MFCC_D_N_Z_0
+                  SOURCEFORMAT                 WAV
+
