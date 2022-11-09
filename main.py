@@ -1,4 +1,6 @@
+import concurrent.futures
 from featureExtraction import extract_features
+import multiprocessing
 import os
 import pandas as pd
 import pickle
@@ -6,8 +8,8 @@ from scipy.io import wavfile
 import time
 
 sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
-time_window_length = 100
-overlap_length = 50
+time_window_length = 200
+overlap_length = 100
 non_overlap_length = time_window_length - overlap_length
 x_data = []
 y_data = []
@@ -67,6 +69,7 @@ def extract_data(person, sentence):
         column_names = raw_data.columns
         data_to_use = raw_data.values
 
+        print(person, sentence)
         for i in range(0, data_to_use.shape[0] - time_window_length, non_overlap_length):
             x = data_to_use[i: i + data_to_use.shape[0]]
             start_time = time.time()
@@ -76,16 +79,16 @@ def extract_data(person, sentence):
             global total_time
             total_time = total_time + (end_time - start_time)
 
-            global x_data
-            x_data.append(feature_vector)
+            # global x_data
+            # x_data.append(feature_vector)
 
-            global y_data
-            y_data.append(sentence)
+            # global y_data
+            # y_data.append(sentence)
             
             # global label_data
             # label_data.append('/'.join([person, sentence]))  # If we want to retrieve the file easily
 
-            return column_names, features
+        return column_names, features, feature_vector, sentence
 
 
 
@@ -95,8 +98,17 @@ def generate_dataset():
     
     arguments = [tuple((person, sentence)) for person in persons for sentence in sentences]
 
-    for person, sentence in arguments:
-        column_names, features = extract_data(person, sentence)
+    # for person, sentence in arguments:
+    #     column_names, features = extract_data(person, sentence)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as e:
+        futures = [e.submit(extract_data, person, sentence) for person, sentence in arguments]
+        for future in concurrent.futures.as_completed(futures):
+            column_names, features, feature_vector, sentence = future.result()
+            global x_data
+            x_data.append(feature_vector)
+            global y_data
+            y_data.append(sentence)
 
     new_column_names = list()
 
@@ -105,7 +117,6 @@ def generate_dataset():
             new_column_names.append(f'{feature}_{column_name}')
 
 
-    global x_data
     x_data = pd.DataFrame(x_data, columns=new_column_names)
     # x_data.insert(0, 'Label', label_data)  # If we can to retrieve the file easily
     x_data.to_csv('x_data.csv', index=False)
