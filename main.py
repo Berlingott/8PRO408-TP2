@@ -1,12 +1,9 @@
-import concurrent.futures
 from featureExtraction import extract_features
-import multiprocessing
 import os
 import pandas as pd
 import pickle
 from scipy.io import wavfile
 import time
-from tqdm import tqdm
 
 sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
 time_window_length = 100
@@ -96,14 +93,6 @@ def generate_dataset():
     persons = [person for person in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{person}')]
     
     arguments = [tuple((person, sentence)) for person in persons for sentence in sentences]
-
-    '''
-    # Multiprocessing for extracting data from each file
-    with concurrent.futures.ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as e:
-        futures = [e.submit(extract_data, person, sentence) for person, sentence in arguments]
-        for future in concurrent.futures.as_completed(futures):
-            column_names, features = future.result()
-    '''
 
     for person, sentence in arguments:
         column_names, features = extract_data(person, sentence)
