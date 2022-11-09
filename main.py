@@ -9,8 +9,8 @@ import time
 from tqdm import tqdm
 
 sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
-time_window_length = 4
-overlap_length = 2
+time_window_length = 100
+overlap_length = 50
 non_overlap_length = time_window_length - overlap_length
 x_data = []
 y_data = []
@@ -36,7 +36,7 @@ def generate_group_csv():
     persons = list()
 
     # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
-    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData{file}')]:
+    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
 
         with open(f'./RawData/{person_folder}/etc/README', 'r') as input:
             # Remove all line returns
@@ -46,7 +46,11 @@ def generate_group_csv():
             # Find the index of "Gender:" and get the gender from the next value
             gender = text[text.index('Gender:') + 1]
             # Find the index of "Language:" and get the language from the next value
-            language = text[text.index('Language:') + 1]
+            try:
+                language_tmp = text[text.index('Language:') + 1]
+            except ValueError:
+                language_tmp = 'Unknown'
+            language = language_tmp
 
         person = {
             'ID': person_folder,
@@ -57,7 +61,7 @@ def generate_group_csv():
         persons.append(person)
 
     persons = pd.DataFrame(persons)
-    persons.to_csv(f'./RawData/persons.csv', index=False)
+    persons.to_csv('./RawData/persons.csv', index=False)
 
 
 def extract_data(person, sentence):
