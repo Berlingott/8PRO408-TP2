@@ -9,12 +9,12 @@ import time
 from tqdm import tqdm
 
 sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
-time_window_length = 15
-overlap_length = 10
+time_window_length = 4
+overlap_length = 2
 non_overlap_length = time_window_length - overlap_length
-max_number_of_workers = multiprocessing.cpu_count() - 1
 x_data = []
 y_data = []
+label_data = []
 total_time = 0
 
 def convert_to_csv():
@@ -77,6 +77,7 @@ def extract_data(person, sentence):
 
             x_data.append(feature_vector)
             y_data.append(sentence)
+            label_data.append('/'.join([person, sentence]))
 
             return column_names, features
 
@@ -85,12 +86,10 @@ def extract_data(person, sentence):
 def generate_dataset():
     # Initialization
     persons = [person for person in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{person}')]
-    number_of_persons = len(persons)
-
     
     # Multiprocessing for extracting data from each file
     arguments = [tuple((person, sentence)) for person in persons for sentence in sentences]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max_number_of_workers) as e:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as e:
         futures = [e.submit(extract_data, person, sentence) for person, sentence in arguments]
         for future in concurrent.futures.as_completed(futures):
             column_names, features = future.result()
@@ -101,8 +100,11 @@ def generate_dataset():
         for column_name in column_names:
             new_column_names.append(f'{feature}_{column_name}')
 
+
     global x_data
     x_data = pd.DataFrame(x_data, columns=new_column_names)
+    x_data.insert(0, 'Label', label_data)
+    x_data.to_csv('x_data.csv', index=False)
 
     print(f'The total time to extract all features is: {total_time}.')
     print(f'The size of the dataset is: {x_data.shape[0]} by {x_data.shape[1]} (instances x features).')
