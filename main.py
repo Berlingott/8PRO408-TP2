@@ -8,8 +8,8 @@ from scipy.io import wavfile
 import time
 
 sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
-time_window_length = 200
-overlap_length = 100
+time_window_length = 500
+overlap_length = 400
 non_overlap_length = time_window_length - overlap_length
 x_data = []
 y_data = []
@@ -69,6 +69,9 @@ def extract_data(person, sentence):
         column_names = raw_data.columns
         data_to_use = raw_data.values
 
+        x_data_temp = list()
+        y_data_temp = list()
+
         print(person, sentence)
         for i in range(0, data_to_use.shape[0] - time_window_length, non_overlap_length):
             x = data_to_use[i: i + data_to_use.shape[0]]
@@ -79,16 +82,11 @@ def extract_data(person, sentence):
             global total_time
             total_time = total_time + (end_time - start_time)
 
-            # global x_data
-            # x_data.append(feature_vector)
 
-            # global y_data
-            # y_data.append(sentence)
+            x_data_temp.append(feature_vector)
+            y_data_temp.append(sentence)
             
-            # global label_data
-            # label_data.append('/'.join([person, sentence]))  # If we want to retrieve the file easily
-
-        return column_names, features, feature_vector, sentence
+        return column_names, features, x_data_temp, y_data_temp
 
 
 
@@ -104,11 +102,11 @@ def generate_dataset():
     with concurrent.futures.ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as e:
         futures = [e.submit(extract_data, person, sentence) for person, sentence in arguments]
         for future in concurrent.futures.as_completed(futures):
-            column_names, features, feature_vector, sentence = future.result()
+            column_names, features, x_data_temp, y_data_temp = future.result()
             global x_data
-            x_data.append(feature_vector)
+            x_data.append(x_data_temp)
             global y_data
-            y_data.append(sentence)
+            y_data.append(y_data_temp)
 
     new_column_names = list()
 
