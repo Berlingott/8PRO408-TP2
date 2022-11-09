@@ -82,7 +82,8 @@ def extract_data(person, sentence):
             global y_data
             y_data.append(sentence)
             
-            label_data.append('/'.join([person, sentence]))
+            # global label_data
+            # label_data.append('/'.join([person, sentence]))  # If we want to retrieve the file easily
 
             return column_names, features
 
@@ -106,7 +107,7 @@ def generate_dataset():
 
     global x_data
     x_data = pd.DataFrame(x_data, columns=new_column_names)
-    x_data.insert(0, 'Label', label_data)
+    # x_data.insert(0, 'Label', label_data)  # If we can to retrieve the file easily
     x_data.to_csv('x_data.csv', index=False)
 
     print(f'The total time to extract all features is: {total_time}.')
