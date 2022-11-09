@@ -1,6 +1,9 @@
+from featureExtraction import extract_features
 import os
 import pandas as pd
+import pickle
 from scipy.io import wavfile
+import time
 
 sentence_list = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
 
