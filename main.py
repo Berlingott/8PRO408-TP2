@@ -87,12 +87,18 @@ def generate_dataset():
     # Initialization
     persons = [person for person in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{person}')]
     
-    # Multiprocessing for extracting data from each file
     arguments = [tuple((person, sentence)) for person in persons for sentence in sentences]
+
+    '''
+    # Multiprocessing for extracting data from each file
     with concurrent.futures.ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as e:
         futures = [e.submit(extract_data, person, sentence) for person, sentence in arguments]
         for future in concurrent.futures.as_completed(futures):
             column_names, features = future.result()
+    '''
+
+    for person, sentence in arguments:
+        column_names, features = extract_data(person, sentence)
 
     new_column_names = list()
 
