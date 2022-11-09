@@ -71,7 +71,7 @@ def extract_data(person, sentence):
         data_to_use = raw_data.values
 
         for i in range(0, data_to_use.shape[0] - time_window_length, non_overlap_length):
-            x = data_to_use[i: i + time_window_length]
+            x = data_to_use[i: i + data_to_use.shape[0]]
             start_time = time.time()
             # Extract features
             feature_vector, features = extract_features(x)
@@ -79,8 +79,12 @@ def extract_data(person, sentence):
             global total_time
             total_time = total_time + (end_time - start_time)
 
+            global x_data
             x_data.append(feature_vector)
+
+            global y_data
             y_data.append(sentence)
+            
             label_data.append('/'.join([person, sentence]))
 
             return column_names, features
