@@ -1,17 +1,27 @@
+import concurrent.futures
 from featureExtraction import extract_features
+import multiprocessing
 import os
 import pandas as pd
 import pickle
 from scipy.io import wavfile
 import time
+from tqdm import tqdm
 
-sentence_list = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
+sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
+time_window_length = 15
+overlap_length = 10
+non_overlap_length = time_window_length - overlap_length
+max_number_of_workers = multiprocessing.cpu_count() - 1
+x_data = []
+y_data = []
+total_time = 0
 
 def convert_to_csv():
     # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
     for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
         # Browse the WAV files
-        for wav_file in [file for file in os.listdir(f'./RawData/{person_folder}/wav/') if file in sentence_list]:
+        for wav_file in [file for file in os.listdir(f'./RawData/{person_folder}/wav/') if file in sentences]:
 
             # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
             # Used to convert a WAV file into a CSV file.
@@ -49,9 +59,64 @@ def generate_group_csv():
     persons = pd.DataFrame(persons)
     persons.to_csv(f'./RawData/persons.csv', index=False)
 
-if __name__ == '__main__':
-    convert_to_csv()
 
-    generate_group_csv()
+def extract_data(person, sentence):
+        raw_data = pd.read_csv(f'./RawData/{person}/wav/{sentence.removesuffix(".wav")}.csv')
+
+        column_names = raw_data.columns
+        data_to_use = raw_data.values
+
+        for i in range(0, data_to_use.shape[0] - time_window_length, non_overlap_length):
+            x = data_to_use[i: i + time_window_length]
+            start_time = time.time()
+            # Extract features
+            feature_vector, features = extract_features(x)
+            end_time = time.time()
+            global total_time
+            total_time = total_time + (end_time - start_time)
+
+            x_data.append(feature_vector)
+            y_data.append(sentence)
+
+            return column_names, features
+
+
+
+def generate_dataset():
+    # Initialization
+    persons = [person for person in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{person}')]
+    number_of_persons = len(persons)
+
+    
+    # Multiprocessing for extracting data from each file
+    arguments = [tuple((person, sentence)) for person in persons for sentence in sentences]
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_number_of_workers) as e:
+        futures = [e.submit(extract_data, person, sentence) for person, sentence in arguments]
+        for future in concurrent.futures.as_completed(futures):
+            column_names, features = future.result()
+
+    new_column_names = list()
+
+    for feature in features:
+        for column_name in column_names:
+            new_column_names.append(f'{feature}_{column_name}')
+
+    global x_data
+    x_data = pd.DataFrame(x_data, columns=new_column_names)
+
+    print(f'The total time to extract all features is: {total_time}.')
+    print(f'The size of the dataset is: {x_data.shape[0]} by {x_data.shape[1]} (instances x features).')
+    print(f'The number of labels is: {len(y_data)}.')
+
+    # Save the dataset
+    with open('dataset.pickle', 'wb') as output:
+        pickle.dump([x_data, y_data], output)
+
+if __name__ == '__main__':
+    # convert_to_csv()
+
+    # generate_group_csv()
+
+    generate_dataset()
 
     print('We are the champions 🎶')
