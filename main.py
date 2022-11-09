@@ -7,7 +7,7 @@ import pickle
 from scipy.io import wavfile
 import time
 
-sentences = ['a0003.wav', 'a0004.wav', 'a0005.wav', 'a0006.wav']
+sentences = ['a0003', 'a0004', 'a0005', 'a0006']
 time_window_length = 500
 overlap_length = 400
 non_overlap_length = time_window_length - overlap_length
@@ -20,15 +20,29 @@ def convert_to_csv():
     # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
     for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
         # Browse the WAV files
-        for wav_file in [file for file in os.listdir(f'./RawData/{person_folder}/wav/') if file in sentences]:
+        for sentence in sentences:
 
             # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
             # Used to convert a WAV file into a CSV file.
 
-            _, data = wavfile.read(f'./RawData/{person_folder}/wav/{wav_file}')  # The first rejected element is the rate, which is always 16kHz
+            _, data = wavfile.read(f'./RawData/{person_folder}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
 
             recording = pd.DataFrame(data)
-            recording.to_csv(f'./RawData/{person_folder}/wav/{wav_file.removesuffix(".wav")}.csv', index=False)
+            recording.to_csv(f'./RawData/{person_folder}/wav/{sentence}.csv', index=False)
+
+
+def one_csv_per_person():
+    # Scrolls through each person
+    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
+        # Browse the sentence CSV files
+        final = pd.DataFrame()
+        for sentence in sentences:
+            column = pd.read_csv(f'./RawData/{person_folder}/wav/{sentence}.csv')
+            column = column.squeeze(axis=0)
+            final[sentence] = column
+        final.to_csv(f'./RawData/{person_folder}/person.csv', index=False)
+
+
 
 
 def generate_group_csv():
@@ -74,7 +88,7 @@ def extract_data(person, sentence):
 
         print(person, sentence)
         for i in range(0, data_to_use.shape[0] - time_window_length, non_overlap_length):
-            x = data_to_use[i: i + data_to_use.shape[0]]
+            x = data_to_use[i: i + time_window_length]
             start_time = time.time()
             # Extract features
             feature_vector, features = extract_features(x)
@@ -130,8 +144,10 @@ def generate_dataset():
 if __name__ == '__main__':
     # convert_to_csv()
 
+    # one_csv_per_person()
+
     # generate_group_csv()
 
-    generate_dataset()
+    # generate_dataset()
 
     print('We are the champions 🎶')
