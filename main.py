@@ -4,8 +4,9 @@ from scipy.io import wavfile
 
 
 def convert_to_csv():
-    # Makes sure we scroll through all the relevant folders.
-    for person_folder in [folder for folder in os.listdir('./RawData/') if folder.startswith('Personne') and not folder.endswith('.csv')]:
+    # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
+    for person_folder in [file for file in os.listdir('./RawData/') if file.startswith('Personne') and os.path.isdir(f'./RawData/{file}')]:
+        # Browse the WAV files
         for wav_file in [file for file in os.listdir(f'./RawData/{person_folder}/wav/') if file.endswith('.wav')]:
 
             # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
@@ -20,8 +21,8 @@ def convert_to_csv():
 def generate_group_csv():
     persons = []
 
-    # Makes sure we scroll through all the relevant folders.
-    for person_folder in [folder for folder in os.listdir('./RawData/') if folder.startswith('Personne') and not folder.endswith('.csv')]:
+    # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
+    for person_folder in [file for file in os.listdir('./RawData/') if file.startswith('Personne') and os.path.isdir(f'./RawData{file}')]:
 
         with open(f'./RawData/{person_folder}/etc/README', 'r') as input:
             # Remove all line returns
