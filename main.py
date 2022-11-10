@@ -13,8 +13,8 @@ raw_dataset_pathname = "./Quarters"
 
 object_list = ["a0003", "a0004", "a0005", "a0006"]
 
-time_window_length = 15
-overlap_length = 10
+time_window_length = 75
+overlap_length = 50
 
 extracted_dataset_pathname = "."
 
