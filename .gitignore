@@ -208,3 +208,4 @@ $RECYCLE.BIN/
 *.lnk
 
 dataset.pickle
+new_dataset.pickle
