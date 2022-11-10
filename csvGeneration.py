@@ -45,16 +45,21 @@ def convert_to_csv_with_quarters():
             quarter_number = math.floor(recording.shape[0]/4)
             excedent = recording.shape[0] % 4
             # We drop the beginning of the recordings because they are usually silent.
-            recording.drop(index=recording.index[:excedent], axis=0)
+            recording = recording.drop([index for index in range(excedent)])
+            recording = recording.reset_index(drop=True)
 
             final = pd.DataFrame()
-            final['Q1'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=0)
-            final['Q2'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=0)
-            final['Q3'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=0)
-            final['Q4'] = recording.squeeze()[:quarter_number]
+
+            final['Q1'] = recording.squeeze().iloc[:quarter_number]
+            recording = recording.drop([index for index in range(quarter_number)])
+            recording = recording.reset_index(drop=True)
+            final['Q2'] = recording.squeeze().iloc[:quarter_number]
+            recording = recording.drop([index for index in range(quarter_number)])
+            recording = recording.reset_index(drop=True)
+            final['Q3'] = recording.squeeze().iloc[:quarter_number]
+            recording = recording.drop([index for index in range(quarter_number)])
+            recording = recording.reset_index(drop=True)
+            final['Q4'] = recording.squeeze().iloc[:quarter_number]
 
             os.makedirs(os.path.dirname(f'./Quarters/{person_folder}/{sentence}.csv'), exist_ok=True)
             final.to_csv(f'./Quarters/{person_folder}/{sentence}.csv', index=False)
