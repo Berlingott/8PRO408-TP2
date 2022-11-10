@@ -1,5 +1,6 @@
 import concurrent.futures
 from featureExtraction import extract_features
+import math
 import multiprocessing
 import os
 import pandas as pd
@@ -19,11 +20,10 @@ total_time = 0
 
 def convert_to_csv():
     print('Converting WAV files to CSV.')
-    # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
+    # Makes sure we scroll through all the relevant folders.
     for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
         # Browse the WAV files
         for sentence in sentences:
-
             # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
             # Used to convert a WAV file into a CSV file.
 
@@ -32,6 +32,36 @@ def convert_to_csv():
             recording = pd.DataFrame(data)
             recording.columns = ['frequency']
             recording.to_csv(f'./RawData/{person_folder}/wav/{sentence}.csv', index=False)
+
+
+def convert_to_csv_with_quarters():
+    print('Converting WAV files to CSV files with four columns.')
+    # Makes sure we scroll through all the relevant folders.
+    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
+        # Browse the WAV files
+        for sentence in sentences:
+            # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
+            # Used to convert a WAV file into a CSV file.
+
+            _, data = wavfile.read(f'./RawData/{person_folder}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
+
+            recording = pd.DataFrame(data)
+            quarter_number = math.floor(len(recording.index())/4)
+            excedent = len(recording.index()) % 4
+            # We drop the beginning of the recordings because they are usually silent.
+            recording.drop(index=recording.index[:excedent], axis=0, inplace=True)
+
+            final = pd.DataFrame()
+            final['Q1'] = recording.squeeze()[:quarter_number]
+            recording.drop(index=recording.index[:quarter_number], axis=1, inplace=True)
+            final['Q2'] = recording.squeeze()[:quarter_number]
+            recording.drop(index=recording.index[:quarter_number], axis=1, inplace=True)
+            final['Q3'] = recording.squeeze()[:quarter_number]
+            recording.drop(index=recording.index[:quarter_number], axis=1, inplace=True)
+            final['Q4'] = recording.squeeze()[:quarter_number]
+
+            os.makedirs(os.path.dirname(f'./Quarters/{person_folder}/{sentence}.csv'), exist_ok=True)
+            final.to_csv(f'./Quarters/{person_folder}/{sentence}.csv', index=False)
 
 
 def one_csv_per_person():
