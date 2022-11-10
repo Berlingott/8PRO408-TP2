@@ -46,7 +46,7 @@ def convert_to_csv_with_quarters():
             _, data = wavfile.read(f'./RawData/{person_folder}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
 
             recording = pd.DataFrame(data)
-            quarter_number = math.floor(len(recording.index())/4)
+            quarter_number = math.floor(recording.shape[0]/4)
             excedent = recording.shape[0] % 4
             # We drop the beginning of the recordings because they are usually silent.
             recording.drop(index=recording.index[:excedent], axis=0, inplace=True)
