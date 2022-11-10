@@ -69,7 +69,6 @@ monte_carlo = dict()
 # transformed into a graph where we will see where the optimal number of sentences (or categories) is to be found.
 # It should be in the 'middle' of the curve, with a slope that is neither to steep (not enough categories)
 # not too flat (not enough persons).
-'''
 for i in tqdm(range(10000)):
     roster = [person for person in extended_selection['Person'].unique()]
     pick = random.choice(roster)
@@ -97,7 +96,6 @@ monte_carlo.columns = ['number of intersections', 'number of occurrences']
 
 fig = px.scatter(monte_carlo, x='number of intersections', y='number of occurrences')
 fig.show()
-'''
 
 # From this Monte-Carlo graph we can see the optimal number of sentences that does not dramatically 
 # reduce the number of persons that recorded them in common. In our case, the middle of the
