@@ -45,15 +45,15 @@ def convert_to_csv_with_quarters():
             quarter_number = math.floor(recording.shape[0]/4)
             excedent = recording.shape[0] % 4
             # We drop the beginning of the recordings because they are usually silent.
-            recording.drop(index=recording.index[:excedent], axis=0, inplace=True)
+            recording.drop(index=recording.index[:excedent], axis=0)
 
             final = pd.DataFrame()
             final['Q1'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=0, inplace=True)
+            recording.drop(index=recording.index[:quarter_number], axis=0)
             final['Q2'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=0, inplace=True)
+            recording.drop(index=recording.index[:quarter_number], axis=0)
             final['Q3'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=0, inplace=True)
+            recording.drop(index=recording.index[:quarter_number], axis=0)
             final['Q4'] = recording.squeeze()[:quarter_number]
 
             os.makedirs(os.path.dirname(f'./Quarters/{person_folder}/{sentence}.csv'), exist_ok=True)
