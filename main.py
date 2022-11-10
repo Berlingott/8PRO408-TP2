@@ -9,18 +9,16 @@ import pickle
 
 # USER PARAMETERS
 
-raw_dataset_pathname = "C:\\8PRO408 - Automne 2022\\Live coding 2\\Basic Daily Activity Dataset"
+raw_dataset_pathname = "./CleanData"
 
-object_list = ["Assiette", "Cafetiere", "Casserole", "Couteau", "Cuillere", "Fouet",
-               "Fourchette", "Louche", "MainAVide", "Poele", "PressoirePatates",
-               "Rouleau", "Tasse", "Verre"]
+object_list = ["a0003", "a0004", "a0005", "a0006"]
 
 time_window_length = 15
 overlap_length = 10
 
-extracted_dataset_pathname = "C:\\8PRO408 - Automne 2022\\Live coding 2\\Basic Daily Activity Dataset"
+extracted_dataset_pathname = "."
 
-new_dataset_name = "New_dataset_15_10"
+new_dataset_name = "new_dataset"
 
 
 # INITIALIZATION
