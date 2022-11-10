@@ -47,7 +47,7 @@ def convert_to_csv_with_quarters():
 
             recording = pd.DataFrame(data)
             quarter_number = math.floor(len(recording.index())/4)
-            excedent = len(recording.index()) % 4
+            excedent = recording.shape[0] % 4
             # We drop the beginning of the recordings because they are usually silent.
             recording.drop(index=recording.index[:excedent], axis=0, inplace=True)
 
