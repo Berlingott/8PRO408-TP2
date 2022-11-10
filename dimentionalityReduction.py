@@ -8,9 +8,9 @@ from sklearn.ensemble import ExtraTreesClassifier
 from matplotlib import pyplot as plt
 
 # USER PARAMETERS
-path_name = "dataset.pickle"
+path_name = "new_dataset_with_quarters.pickle"
 
-attribute_number_to_select = 6
+attribute_number_to_select = 24
 
 
 # LOAD THE DATASET
