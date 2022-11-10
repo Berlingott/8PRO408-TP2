@@ -190,6 +190,8 @@ def generate_dataset():
 if __name__ == '__main__':
     convert_to_csv()
 
+    convert_to_csv_with_quarters()
+
     one_csv_per_person()
 
     generate_group_csv()

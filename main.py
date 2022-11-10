@@ -9,7 +9,7 @@ import pickle
 
 # USER PARAMETERS
 
-raw_dataset_pathname = "./CleanData"
+raw_dataset_pathname = "./Quarters"
 
 object_list = ["a0003", "a0004", "a0005", "a0006"]
 
@@ -18,7 +18,7 @@ overlap_length = 10
 
 extracted_dataset_pathname = "."
 
-new_dataset_name = "new_dataset"
+new_dataset_name = "new_dataset_with_quarters"
 
 
 # INITIALIZATION
