@@ -49,11 +49,11 @@ def convert_to_csv_with_quarters():
 
             final = pd.DataFrame()
             final['Q1'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=1, inplace=True)
+            recording.drop(index=recording.index[:quarter_number], axis=0, inplace=True)
             final['Q2'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=1, inplace=True)
+            recording.drop(index=recording.index[:quarter_number], axis=0, inplace=True)
             final['Q3'] = recording.squeeze()[:quarter_number]
-            recording.drop(index=recording.index[:quarter_number], axis=1, inplace=True)
+            recording.drop(index=recording.index[:quarter_number], axis=0, inplace=True)
             final['Q4'] = recording.squeeze()[:quarter_number]
 
             os.makedirs(os.path.dirname(f'./Quarters/{person_folder}/{sentence}.csv'), exist_ok=True)
