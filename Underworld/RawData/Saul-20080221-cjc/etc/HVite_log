@@ -1,0 +1,61 @@
+HVite -A -D -T 1 -l * -o SWT -b silence -C /data/svn-mirror/Main/Trunk/Scripts/AcousticModel_scripts/HTK/AMCreate_scripts/input_files/config -H ./interim_files/hmm7/macros -H ./interim_files/hmm7/hmmdefs -i ./interim_files/aligned.mlf -m -t 250.0 150.0 1000.0 -y lab -a -I ./interim_files/words.mlf -S ./interim_files/train.scp ./interim_files/dict1 ./interim_files/monophones1 
+
+HTK Configuration Parameters[10]
+  Module/Tool     Parameter                  Value
+#                 NUMCEPS                       12
+#                 CEPLIFTER                     22
+#                 NUMCHANS                      26
+#                 PREEMCOEF               0.970000
+#                 USEHAMMING                  TRUE
+#                 WINDOWSIZE         250000.000000
+#                 SAVEWITHCRC                 TRUE
+#                 SAVECOMPRESSED              TRUE
+#                 TARGETRATE         100000.000000
+#                 TARGETKIND          MFCC_0_D_N_Z
+
+Read 41 physical / 41 logical HMMs
+Label file will be used to align each file
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0007.mfc
+Created lattice with 13 nodes / 12 arcs from label file
+silence AND YOU ALWAYS WANT TO SEE IT IN THE SUPERLATIVE DEGREE silence  ==  [349 frames] -58.5456 [Ac=-20432.4 LM=0.0] (Act=9.9)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0008.mfc
+Created lattice with 9 nodes / 8 arcs from label file
+silence GAD YOUR LETTER CAME JUST IN TIME silence  ==  [424 frames] -50.4287 [Ac=-21381.8 LM=0.0] (Act=9.5)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0009.mfc
+Created lattice with 11 nodes / 10 arcs from label file
+silence HE TURNED SHARPLY AND FACED GREGSON ACROSS THE TABLE silence  ==  [474 frames] -55.3869 [Ac=-26253.4 LM=0.0] (Act=11.5)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0010.mfc
+Created lattice with 14 nodes / 13 arcs from label file
+silence I'M PLAYING A SINGLE HAND IN WHAT LOOKS LIKE A LOSING GAME silence  ==  [449 frames] -55.9638 [Ac=-25127.7 LM=0.0] (Act=12.9)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0011.mfc
+Created lattice with 15 nodes / 14 arcs from label file
+silence IF I EVER NEEDED A FIGHTER IN MY LIFE I NEED ONE NOW silence  ==  [436 frames] -55.4226 [Ac=-24164.3 LM=0.0] (Act=14.4)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0012.mfc
+Created lattice with 12 nodes / 11 arcs from label file
+silence GREGSON SHOVED BACK HIS CHAIR AND ROSE TO HIS FEET silence  ==  [436 frames] -55.3671 [Ac=-24140.1 LM=0.0] (Act=11.6)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0013.mfc
+Created lattice with 14 nodes / 13 arcs from label file
+silence HE WAS A HEAD SHORTER THAN HIS COMPANION OF ALMOST DELICATE PHYSIQUE silence  ==  [487 frames] -56.1735 [Ac=-27356.5 LM=0.0] (Act=10.9)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0014.mfc
+Created lattice with 11 nodes / 10 arcs from label file
+silence NOW YOU'RE COMING DOWN TO BUSINESS PHIL HE EXCLAIMED silence  ==  [436 frames] -56.6934 [Ac=-24718.3 LM=0.0] (Act=10.5)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0015.mfc
+Created lattice with 6 nodes / 5 arcs from label file
+silence IT'S THE AURORA BOREALIS silence  ==  [349 frames] -53.4336 [Ac=-18648.3 LM=0.0] (Act=9.2)
+Aligning File: /data/UserSubmissions/Quarantine/Saul-20080221-cjc/mfc/a0016.mfc
+Created lattice with 11 nodes / 10 arcs from label file
+silence THERE'S FORT CHURCHILL A RIFLE-SHOT BEYOND THE RIDGE ASLEEP silence  ==  [449 frames] -58.6537 [Ac=-26335.5 LM=0.0] (Act=11.4)
+
+HTK Configuration Parameters[10]
+  Module/Tool     Parameter                  Value
+                  NUMCEPS                       12
+                  CEPLIFTER                     22
+                  NUMCHANS                      26
+                  PREEMCOEF               0.970000
+                  USEHAMMING                  TRUE
+                  WINDOWSIZE         250000.000000
+                  SAVEWITHCRC                 TRUE
+                  SAVECOMPRESSED              TRUE
+                  TARGETRATE         100000.000000
+                  TARGETKIND          MFCC_0_D_N_Z
+
