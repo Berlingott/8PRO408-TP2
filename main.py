@@ -11,7 +11,7 @@ import pickle
 
 raw_dataset_pathname = "./Quarters"
 
-object_list = ["a0003", "a0004", "a0005", "a0006"]
+object_list = ["ralfherzog-20070803", "robertburrelldonkin-20070902-cc"]
 
 time_window_length = 200
 overlap_length = 100

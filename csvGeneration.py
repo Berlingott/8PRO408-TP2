@@ -5,7 +5,7 @@ import pandas as pd
 from scipy.io import wavfile
 import shutil
 
-sentences = ['a0003', 'a0004', 'a0005', 'a0006']
+sentences = [f'cc-{str(number).zfill(2)}' for number in range(1, 40)]
 time_window_length = 500
 overlap_length = 400
 non_overlap_length = time_window_length - overlap_length
@@ -17,29 +17,29 @@ total_time = 0
 def convert_to_csv():
     print('Converting WAV files to CSV.')
     # Makes sure we scroll through all the relevant folders.
-    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
+    for person in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
         # Browse the WAV files
         for sentence in sentences:
             # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
             # Used to convert a WAV file into a CSV file.
 
-            _, data = wavfile.read(f'./RawData/{person_folder}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
+            _, data = wavfile.read(f'./RawData/{person}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
 
             recording = pd.DataFrame(data)
             recording.columns = ['frequency']
-            recording.to_csv(f'./RawData/{person_folder}/wav/{sentence}.csv', index=False)
+            recording.to_csv(f'./RawData/{person}/wav/{sentence}.csv', index=False)
 
 
 def convert_to_csv_with_quarters():
     print('Converting WAV files to CSV files with four columns.')
     # Makes sure we scroll through all the relevant folders.
-    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
+    for person in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
         # Browse the WAV files
         for sentence in sentences:
             # Source code for the following: https://github.com/Lukious/wav-to-csv/blob/master/wav2csv.py
             # Used to convert a WAV file into a CSV file.
 
-            _, data = wavfile.read(f'./RawData/{person_folder}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
+            _, data = wavfile.read(f'./RawData/{person}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
 
             recording = pd.DataFrame(data)
             quarter_number = math.floor(recording.shape[0]/4)
@@ -61,21 +61,21 @@ def convert_to_csv_with_quarters():
             recording = recording.reset_index(drop=True)
             final['Q4'] = recording.squeeze().iloc[:quarter_number]
 
-            os.makedirs(os.path.dirname(f'./Quarters/{person_folder}/{sentence}.csv'), exist_ok=True)
-            final.to_csv(f'./Quarters/{person_folder}/{sentence}.csv', index=False)
+            os.makedirs(os.path.dirname(f'./Quarters/{sentence}/{person}.csv'), exist_ok=True)
+            final.to_csv(f'./Quarters/{sentence}/{person}.csv', index=False)
 
 
 def one_csv_per_person():
     print('Merging the CSV files into one file per person.')
     # Scrolls through each person
-    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
+    for person in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
         # Browse the sentence CSV files
         final = pd.DataFrame()
         for sentence in sentences:
-            column = pd.read_csv(f'./RawData/{person_folder}/wav/{sentence}.csv')
+            column = pd.read_csv(f'./RawData/{person}/wav/{sentence}.csv')
             column = column.squeeze(axis=0)
             final[sentence] = column
-        final.to_csv(f'./RawData/{person_folder}/person.csv', index=False)
+        final.to_csv(f'./RawData/{person}/person.csv', index=False)
 
 
 
@@ -85,9 +85,9 @@ def generate_group_csv():
     persons = list()
 
     # Makes sure we scroll through all the relevant folders: starts with "Personne" and is actually a folder.
-    for person_folder in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
+    for person in [file for file in os.listdir('./RawData/') if os.path.isdir(f'./RawData/{file}')]:
 
-        with open(f'./RawData/{person_folder}/etc/README', 'r') as input:
+        with open(f'./RawData/{person}/etc/README', 'r') as input:
             # Remove all line returns
             text = ' '.join(input.readlines())
             # Transform the text into a list of tokens
@@ -102,7 +102,7 @@ def generate_group_csv():
             language = language_tmp
 
         person = {
-            'ID': person_folder,
+            'ID': person,
             'Gender': gender,
             'Language': language
         }
@@ -128,10 +128,10 @@ if __name__ == '__main__':
 
     convert_to_csv_with_quarters()
 
-    one_csv_per_person()
+    # one_csv_per_person()
 
-    generate_group_csv()
+    # generate_group_csv()
 
-    clean_data()
+    # clean_data()
 
     print('We are the champions 🎶')
