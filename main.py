@@ -9,16 +9,20 @@ import pickle
 
 # USER PARAMETERS
 
-raw_dataset_pathname = "./Quarters"
+raw_dataset_pathname = "./CleanData"
 
-object_list = ["ralfherzog-20070803", "robertburrelldonkin-20070902-cc"]
+object_list = [person for person in os.listdir('./RawData/')]
 
-time_window_length = 200
-overlap_length = 100
+# Using a window length that is too short causes sets of values
+# that are too similar. This in turn generates NaNs for kurtosis
+# and skewness. The dimentionality reduction tool does not support
+# NaNs. For that reason a wider window needs to be applied.
+time_window_length = 500
+overlap_length = 250
 
 extracted_dataset_pathname = "."
 
-new_dataset_name = "new_dataset_with_quarters"
+new_dataset_name = "new_dataset"
 
 
 # INITIALIZATION
