@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 # USER PARAMETERS
 path_name = "new_dataset.pickle"
 
-attribute_number_to_select = 10
+attribute_number_to_select = 20
 
 
 # LOAD THE DATASET
@@ -19,7 +19,8 @@ with open(path_name, "rb") as file:
 
 
 # DIMENTIONALITY REDUCTION
-classifier_model = ExtraTreesClassifier(n_estimators=50)
+# We have added a random state to make the results reproducible.
+classifier_model = ExtraTreesClassifier(n_estimators=50, random_state=42)
 
 classifier_model = classifier_model.fit(x, y)
 
