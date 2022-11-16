@@ -9,7 +9,7 @@ import pickle
 
 # USER PARAMETERS
 
-raw_dataset_pathname = "./CleanData"
+raw_dataset_pathname = "./AmpFreq"
 
 object_list = [person for person in os.listdir('./RawData/')]
 
