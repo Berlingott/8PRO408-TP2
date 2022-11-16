@@ -19,7 +19,7 @@ def convert_to_csv():
             _, data = wavfile.read(f'./RawData/{person}/wav/{sentence}.wav')  # The first rejected element is the rate, which is always 16kHz
 
             recording = pd.DataFrame(data)
-            recording.columns = ['dist']
+            recording.columns = ['amp']
 
             os.makedirs(os.path.dirname(f'./CleanData/{sentence}/{person}.csv'), exist_ok=True)
             recording.to_csv(f'./CleanData/{sentence}/{person}.csv', index=False)

@@ -40,6 +40,32 @@ def extract_kurtosis(data):
 
     return kurtosis_values
 
+def extract_difference(data):
+
+    biggest_diff = 0
+    last_datum = None
+    for datum in data:
+        if last_datum is not None:
+            difference = abs(datum - last_datum)
+            if difference > biggest_diff:
+                biggest_diff = difference
+        last_datum = datum
+    return biggest_diff
+
+def extract_sum(data):
+
+    sum_values = np.sum(data, axis=0)
+
+    return sum_values
+
+def extract_amplitude(data):
+
+    max_values = np.max(data, axis=0)
+    min_values = np.min(data, axis=0)
+    amplitude_values = max_values + abs(min_values)
+
+    return amplitude_values
+
 def extract_features(data):
 
     tmp = extract_min(data)
@@ -48,5 +74,8 @@ def extract_features(data):
     tmp = np.append(tmp, extract_std(data))
     tmp = np.append(tmp, extract_skewness(data))
     tmp = np.append(tmp, extract_kurtosis(data))
+    tmp = np.append(tmp, extract_difference(data))
+    tmp = np.append(tmp, extract_sum(data))
+    tmp = np.append(tmp, extract_amplitude(data))
 
-    return tmp, ["min", "max", "mean", "std", "skew", "kurt"]
+    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum"]
