@@ -39,17 +39,19 @@ def convert_to_amp_freq():
             count = 0
             amplitudes = list()
             frequencies = list()
+            ascending = True
 
             for sample in recording:
                 count = count + 1
                 if previous_sample is None:
-                    previous_sample = abs(sample)
+                    previous_sample = sample
                     continue
-                if previous_sample > abs(sample):
-                    amplitudes.append(previous_sample)
+                if (previous_sample > sample and ascending == True) or (previous_sample < sample and ascending == False):
+                    amplitudes.append(abs(previous_sample))
                     frequencies.append(16000/count)
                     count = 0
-                previous_sample = abs(sample)
+                    ascending = not ascending
+                previous_sample = sample
 
             # Make sure we don't keep a partial half-cycle at the beginning
             if recording.loc[0] > recording.loc[1]:
