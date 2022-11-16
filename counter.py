@@ -100,10 +100,12 @@ fig.show()
 # From this Monte-Carlo graph we can see the optimal number of sentences that does not dramatically 
 # reduce the number of persons that recorded them in common. In our case, the middle of the
 # curve seems to be around four (4) sentences, or categories. This number should in theory yield
-# the greatest total of CSV files converted from WAV recordings.
-number_of_categories = 4
+# the greatest total of CSV files converted from WAV recordings. However since this study aims to
+# recognize the speaker, a higher number of recordings per person is preferrable. That is why we chose
+# to augment this number to six (6) sentences, even though that reduces the speakers to sixteen (16).
+number_of_sentences = 6
 
-# The next Monte-Carlo algorithm will try to find the combination of four (4) sentences (or categories)
+# The next Monte-Carlo algorithm will try to find the combination of four (6) sentences
 # that is common to the greatest number of persons. It will do the opposite of the previous algorithm:
 # instead of picking persons at random and intersecting their sentences, it will pick sentences at random
 # and intersect their persons, until zero (0) is reached. The largest set of persons will be he output.
@@ -112,7 +114,7 @@ persons = set()
 for i in tqdm(range(10000)):
     roster = [sentence for sentence in extended_selection['Sentence'].unique()]
     picks = set()
-    for j in range(number_of_categories):
+    for j in range(number_of_sentences):
         pick = random.choice(roster)
         roster.remove(pick)
         picks.add(pick)
@@ -125,7 +127,7 @@ for i in tqdm(range(10000)):
         best_picks = picks
         persons = spectrum
 
-print(f'The {number_of_categories} sentences with the greatest number of common persons ({len(persons)}) are:')
+print(f'The {number_of_sentences} sentences with the greatest number of common persons ({len(persons)}) are:')
 for pick in best_picks:
     print(pick)
 print()
