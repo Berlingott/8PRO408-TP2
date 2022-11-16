@@ -95,7 +95,8 @@ monte_carlo = pd.DataFrame(monte_carlo.items())
 monte_carlo.columns = ['number of intersections', 'number of occurrences']
 
 fig = px.scatter(monte_carlo, x='number of intersections', y='number of occurrences')
-fig.show()
+# pip install kaleido==0.1.0.post1
+fig.write_image("counter.png")
 
 # From this Monte-Carlo graph we can see the optimal number of sentences that does not dramatically 
 # reduce the number of persons that recorded them in common. In our case, the middle of the
