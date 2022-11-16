@@ -48,8 +48,11 @@ def convert_to_amp_freq():
                     continue
                 if (previous_sample > sample and ascending == True) or (previous_sample < sample and ascending == False):
                     amplitudes.append(abs(previous_sample))
-                    frequencies.append(16000/count)
-                    count = 0
+                    if ascending == True:
+                        frequencies.append(16000/count)
+                        count = 0
+                    else:
+                        frequencies.append(frequencies[-1])
                     ascending = not ascending
                 previous_sample = sample
 
