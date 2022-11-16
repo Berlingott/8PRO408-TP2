@@ -58,14 +58,6 @@ def extract_sum(data):
 
     return sum_values
 
-def extract_amplitude(data):
-
-    max_values = np.max(data, axis=0)
-    min_values = np.min(data, axis=0)
-    amplitude_values = max_values + abs(min_values)
-
-    return amplitude_values
-
 def extract_features(data):
 
     tmp = extract_min(data)
@@ -76,6 +68,5 @@ def extract_features(data):
     tmp = np.append(tmp, extract_kurtosis(data))
     tmp = np.append(tmp, extract_difference(data))
     tmp = np.append(tmp, extract_sum(data))
-    tmp = np.append(tmp, extract_amplitude(data))
 
     return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum"]
