@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 # USER PARAMETERS
 path_name = "new_dataset.pickle"
 
-attribute_number_to_select = 7
+attribute_number_to_select = 10
 
 
 # LOAD THE DATASET

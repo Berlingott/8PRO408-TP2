@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from scipy import stats
 
 
@@ -42,21 +43,48 @@ def extract_kurtosis(data):
 
 def extract_difference(data):
 
-    biggest_diff = 0
-    last_datum = None
-    for datum in data:
-        if last_datum is not None:
-            difference = abs(datum - last_datum)
-            if difference > biggest_diff:
-                biggest_diff = difference
-        last_datum = datum
-    return biggest_diff
+    data = pd.DataFrame(data)
+    biggest_diffs = list()
+
+    for column in data:
+        biggest_diff = 0
+        last_datum = None
+        for datum in data[column]:
+            if last_datum is not None:
+                difference = abs(datum - last_datum)
+                if difference > biggest_diff:
+                    biggest_diff = difference
+            last_datum = datum
+        biggest_diffs.append(biggest_diff)
+
+    return np.array(biggest_diffs)
 
 def extract_sum(data):
 
     sum_values = np.sum(data, axis=0)
 
     return sum_values
+
+def extract_slope(data):
+    data = pd.DataFrame(data)
+    slope_values = list()
+
+    for column in data:
+        values = data[column].to_list()
+        slope, _ = np.polyfit(range(0, len(values)), values, 1)
+        slope_values.append(slope)
+
+    return np.array(slope_values)
+
+def extract_count(data):
+    data = pd.DataFrame(data)
+    count_values = list()
+    
+    for column in data:
+        column_df = pd.DataFrame(data[column])
+        count_values.append(column_df.groupby(column)[column].count().max())
+
+    return np.array(count_values)
 
 def extract_features(data):
 
@@ -68,5 +96,7 @@ def extract_features(data):
     tmp = np.append(tmp, extract_kurtosis(data))
     tmp = np.append(tmp, extract_difference(data))
     tmp = np.append(tmp, extract_sum(data))
+    tmp = np.append(tmp, extract_slope(data))
+    tmp = np.append(tmp, extract_count(data))
 
-    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum"]
+    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum", "slope", "count"]
