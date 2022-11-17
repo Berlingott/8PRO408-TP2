@@ -89,7 +89,12 @@ def extract_count(data):
 
 def extract_fourier(data):
     data = pd.DataFrame(data)
-    frequency_values = list()
+    frequency1_values = list()
+    amplitude1_values = list()
+    frequency2_values = list()
+    amplitude2_values = list()
+    frequency3_values = list()
+    amplitude3_values = list()
 
     for column in data:
         # Source for this Fourier transformation: https://stackoverflow.com/a/23378284
@@ -104,10 +109,24 @@ def extract_fourier(data):
         spectrum['Frequency'] = frqLabel[:(d-1)]
         spectrum['Amplitude'] = abs(c[:(d-1)])
 
-        frequency = spectrum['Frequency'].loc[spectrum['Amplitude'].idxmax(axis=0)]
-        frequency_values.append(frequency)
+        spectrum = spectrum.sort_values(by='Amplitude', ascending=False)
+        spectrum = spectrum.reset_index()
 
-    return np.array(frequency_values)
+        amplitude1 = spectrum['Amplitude'].loc[0]
+        frequency1 = spectrum['Frequency'].loc[0]
+        amplitude2 = spectrum['Amplitude'].loc[1]
+        frequency2 = spectrum['Frequency'].loc[1]
+        amplitude3 = spectrum['Amplitude'].loc[2]
+        frequency3 = spectrum['Frequency'].loc[2]
+
+        amplitude1_values.append(amplitude1)
+        frequency1_values.append(frequency1)
+        amplitude2_values.append(amplitude2)
+        frequency2_values.append(frequency2)
+        amplitude3_values.append(amplitude3)
+        frequency3_values.append(frequency3)
+
+    return np.array(frequency1_values), np.array(amplitude1_values), np.array(frequency2_values), np.array(amplitude2_values), np.array(frequency3_values), np.array(amplitude3_values)
     
 
 def extract_features(data):
@@ -122,6 +141,12 @@ def extract_features(data):
     tmp = np.append(tmp, extract_sum(data))
     tmp = np.append(tmp, extract_slope(data))
     tmp = np.append(tmp, extract_count(data))
-    tmp = np.append(tmp, extract_fourier(data))
+    freq1, amp1, freq2, amp2, freq3, amp3 = extract_fourier(data)
+    tmp = np.append(tmp, freq1)
+    tmp = np.append(tmp, amp1)
+    tmp = np.append(tmp, freq2)
+    tmp = np.append(tmp, amp2)
+    tmp = np.append(tmp, freq3)
+    tmp = np.append(tmp, amp3)
 
-    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum", "slope", "count", "freq"]
+    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum", "slope", "count", "freq1", "amp1", "freq2", "amp2", "freq3", "amp3"]

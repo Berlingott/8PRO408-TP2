@@ -22,4 +22,20 @@ result['Amplitude'] = abs(c[:(d-1)])
 fig = px.line(result, x='Frequency', y='Amplitude')
 fig.show()
 
-print(result['Frequency'].loc[result['Amplitude'].idxmax(axis=0)])
+result = result.sort_values(by='Amplitude', ascending=False)
+result = result.reset_index()
+
+amplitude1 = result['Amplitude'].loc[0]
+frequency1 = result['Frequency'].loc[0]
+amplitude2 = result['Amplitude'].loc[1]
+frequency2 = result['Frequency'].loc[1]
+amplitude3 = result['Amplitude'].loc[2]
+frequency3 = result['Frequency'].loc[2]
+
+print('The stats for the three biggest peeks are:')
+print(f'    - amp1:     {amplitude1}')
+print(f'    - freq1:    {frequency1}')
+print(f'    - amp2:     {amplitude2}')
+print(f'    - freq2:    {frequency2}')
+print(f'    - amp3:     {amplitude3}')
+print(f'    - freq3:    {frequency3}')
