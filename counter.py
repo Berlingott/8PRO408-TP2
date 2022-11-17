@@ -103,7 +103,7 @@ fig.write_image("counter.png")
 # curve seems to be around four (4) sentences, or categories. This number should in theory yield
 # the greatest total of CSV files converted from WAV recordings. However since this study aims to
 # recognize the speaker, a higher number of recordings per person is preferrable. That is why we chose
-# to augment this number to six (6) sentences, even though that reduces the speakers to sixteen (16).
+# to augment this number to six (6) sentences, even though that reduces the speakers to eight (8).
 number_of_sentences = 6
 
 # The next Monte-Carlo algorithm will try to find the combination of four (6) sentences
