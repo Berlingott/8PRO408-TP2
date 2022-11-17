@@ -16,21 +16,24 @@ T = len(data)/16000 # where 16,000 is the sampling frequency
 frqLabel = k/T
 
 result = pd.DataFrame()
-result['Frequency'] = frqLabel[:(d-1)]
-result['Amplitude'] = abs(c[:(d-1)])
+result['frequency (kHz)'] = frqLabel[:(d-1)]/1000 # Convert frequencies from Hz to kHz
+result['amplitude'] = abs(c[:(d-1)])
 
-fig = px.line(result, x='Frequency', y='Amplitude')
-fig.show()
+fig = px.line(result, x='frequency (kHz)', y='amplitude')
 
-result = result.sort_values(by='Amplitude', ascending=False)
+# Works only when installing kaleido as "pip install kaleido==0.2.1.post1"
+# Discussion: https://github.com/plotly/Kaleido/issues/134
+fig.write_image("fourier.png")
+
+result = result.sort_values(by='amplitude', ascending=False)
 result = result.reset_index()
 
-amplitude1 = result['Amplitude'].loc[0]
-frequency1 = result['Frequency'].loc[0]
-amplitude2 = result['Amplitude'].loc[1]
-frequency2 = result['Frequency'].loc[1]
-amplitude3 = result['Amplitude'].loc[2]
-frequency3 = result['Frequency'].loc[2]
+amplitude1 = result['amplitude'].loc[0]
+frequency1 = result['frequency (kHz)'].loc[0]
+amplitude2 = result['amplitude'].loc[1]
+frequency2 = result['frequency (kHz)'].loc[1]
+amplitude3 = result['amplitude'].loc[2]
+frequency3 = result['frequency (kHz)'].loc[2]
 
 print('The stats for the three biggest peeks are:')
 print(f'    - amp1:     {amplitude1}')
