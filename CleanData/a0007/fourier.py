@@ -20,6 +20,7 @@ result['frequency (kHz)'] = frqLabel[:(d-1)]/1000 # Convert frequencies from Hz 
 result['amplitude'] = abs(c[:(d-1)])
 
 fig = px.line(result, x='frequency (kHz)', y='amplitude')
+fig.update_layout(xaxis=dict(dtick=0.5))
 
 # Works only when installing kaleido as "pip install kaleido==0.2.1.post1"
 # Discussion: https://github.com/plotly/Kaleido/issues/134
