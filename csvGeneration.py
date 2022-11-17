@@ -40,20 +40,24 @@ def convert_to_amp_freq():
             amplitudes = list()
             frequencies = list()
             ascending = True
+            mean = recording.mean()
 
             for sample in recording:
                 count = count + 1
                 if previous_sample is None:
                     previous_sample = sample
                     continue
-                if (previous_sample > sample and ascending == True) or (previous_sample < sample and ascending == False):
+                if (previous_sample > sample and ascending and previous_sample > mean) or (previous_sample < sample and not ascending and previous_sample < mean):
                     amplitudes.append(abs(previous_sample))
-                    if ascending == True:
+                    if ascending:
                         frequencies.append(16000/count)
                         count = 0
-                    else:
+                    elif len(frequencies) > 0:
                         frequencies.append(frequencies[-1])
-                    ascending = not ascending
+                if previous_sample < sample:
+                    ascending = True
+                else:
+                    ascending = False
                 previous_sample = sample
 
             # Make sure we don't keep a partial half-cycle at the beginning
@@ -62,7 +66,7 @@ def convert_to_amp_freq():
                 frequencies.pop(0)
 
             # Make the two columns of equal length
-            if len(amplitudes) > len(frequencies):
+            while len(amplitudes) > len(frequencies):
                 amplitudes.pop(0)
 
             conversion = pd.DataFrame()
