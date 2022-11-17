@@ -9,7 +9,7 @@ import pickle
 
 # USER PARAMETERS
 
-raw_dataset_pathname = "./AmpFreq"
+raw_dataset_pathname = "./CleanData"
 
 object_list = [person for person in os.listdir('./RawData/')]
 
@@ -17,8 +17,8 @@ object_list = [person for person in os.listdir('./RawData/')]
 # that are too similar. This in turn generates NaNs for kurtosis
 # and skewness. The dimentionality reduction tool does not support
 # NaNs. For that reason a wider window needs to be applied.
-time_window_length = 2500
-overlap_length = 1000
+time_window_length = 500
+overlap_length = 250
 
 extracted_dataset_pathname = "."
 

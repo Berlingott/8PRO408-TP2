@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy import stats
+from scipy.fftpack import fft
 
 
 def extract_min(data):
@@ -86,6 +87,29 @@ def extract_count(data):
 
     return np.array(count_values)
 
+def extract_fourier(data):
+    data = pd.DataFrame(data)
+    frequency_values = list()
+
+    for column in data:
+        # Source for this Fourier transformation: https://stackoverflow.com/a/23378284
+        a = np.array(data[column]) # load the data
+        b = [ele/2**16 for ele in a] # this is 16-bit track, b is now normalized on [-1,1)
+        c = fft(b) # calculate fourier transform (complex numbers list)
+        d = int(len(c)/2) # you only need half of the fft list (real signal symmetry)
+        k = np.arange(len(a))
+        T = len(data)/16000 # where 16,000 is the sampling frequency
+        frqLabel = k/T
+        spectrum = pd.DataFrame()
+        spectrum['Frequency'] = frqLabel[:(d-1)]
+        spectrum['Amplitude'] = abs(c[:(d-1)])
+
+        frequency = spectrum['Frequency'].loc[spectrum['Amplitude'].idxmax(axis=0)]
+        frequency_values.append(frequency)
+
+    return np.array(frequency_values)
+    
+
 def extract_features(data):
 
     tmp = extract_min(data)
@@ -98,5 +122,6 @@ def extract_features(data):
     tmp = np.append(tmp, extract_sum(data))
     tmp = np.append(tmp, extract_slope(data))
     tmp = np.append(tmp, extract_count(data))
+    tmp = np.append(tmp, extract_fourier(data))
 
-    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum", "slope", "count"]
+    return tmp, ["min", "max", "mean", "std", "skew", "kurt", "diff", "sum", "slope", "count", "freq"]
