@@ -99,7 +99,7 @@ def extract_fourier(data):
     for column in data:
         # Source for this Fourier transformation: https://stackoverflow.com/a/23378284
         a = np.array(data[column]) # load the data
-        b = [ele/2**16 for ele in a] # this is 16-bit track, b is now normalized on [-1,1)
+        b = [element/2**15 for element in a] # this is 16-bit track, b is now normalized on [-1,1)
         c = fft(b) # calculate fourier transform (complex numbers list)
         d = int(len(c)/2) # you only need half of the fft list (real signal symmetry)
         k = np.arange(len(a))
