@@ -114,9 +114,7 @@ cm = utilDecisionTreeClassification.compute_performances_for_multiclass(y_test, 
                                                                         performances)
 
 # Display the results
-utilDecisionTreeClassification.display_confusion_matrix(performances, class_names)
-utilDecisionTreeClassification.display_features_and_classification_for_dt_classifier(X_test, y_test, class_names,
+utilDecisionTreeClassification.plotly_confusion_matrix(performances, class_names)
+utilDecisionTreeClassification.plotly_features_and_classification_for_dt_classifier(X_test, y_test, class_names,
                                                                                      decision_tree_classifier,
                                                                                      decision_tree_parameters)
-
-plt.show()
