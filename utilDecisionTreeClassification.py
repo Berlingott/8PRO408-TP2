@@ -296,7 +296,7 @@ def plotly_confusion_matrix(performances, class_names, title='Confusion matrix',
                     labels=dict(x ="Predicted label",
                                 y ="True label")
                     )
-    fig.show()
+    fig.write_image(f"Graphs/confusion_matrix.png")
 
 
 def plotly_features_and_classification_for_dt_classifier(x, y, class_names, decision_tree_classifier,
@@ -342,4 +342,4 @@ def plotly_features_and_classification_for_dt_classifier(x, y, class_names, deci
             fig.update_xaxes(range=[xx.min(), xx.max()])
             fig.update_yaxes(range=[yy.min(), yy.max()])
             
-        fig.show()
+        fig.write_image(f'Graphs/{indice_1}{indice_2}.png')
