@@ -1,7 +1,3 @@
-import os
-
-import csv
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -9,12 +5,15 @@ import utilDecisionTreeClassification
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 
+import pickle
+
 ########################################################################################################################
 #                                    User Settings for the Decision Tree Classifier                                    #
 ########################################################################################################################
 
 # Define the path of the dataset
-dataset = datasets.load_iris()
+with open("selected_features.pickle", "rb") as file:
+    dataset = pickle.load(file)
 
 # Create a class object that define parameters of the decision tree classifier
 decision_tree_parameters = utilDecisionTreeClassification.DecisionTreeParameters()
@@ -69,9 +68,10 @@ decision_tree_parameters.max_leaf_nodes = None
 #                                  Display Information, Convert and Create Variables                                   #
 ########################################################################################################################
 
-X = dataset.data[:, :]
-y = dataset.target
-class_names = dataset.target_names
+class_names = sorted(list(set(dataset[1])))
+
+X = np.array(dataset[0])
+y = [class_names.index(person) for person in dataset[1]]
 
 # Get the training and testing datasets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)

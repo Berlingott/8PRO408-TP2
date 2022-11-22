@@ -368,9 +368,11 @@ def display_features_and_classification_for_dt_classifier(x, y, class_names, dec
 
             elif (number_of_combination % 2) == 0:
 
-                ppp = str(int(indice_plot_1)) + str(2) + str(i+1)
+                a = int(indice_plot_1)
+                b = 2
+                c = i + 1
 
-                plt.subplot(int(ppp))
+                plt.subplot(a, b, c)
                 plt.scatter(x[:, indice_1], x[:, indice_2], c=y, cmap=cmap_bold, edgecolor='k', s=20)
                 plt.title("%i-Class classification"
                           % (number_of_classes))
