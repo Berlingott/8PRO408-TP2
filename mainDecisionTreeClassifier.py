@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 import utilDecisionTreeClassification
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
-
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn import preprocessing
 import pickle
 
 ########################################################################################################################
@@ -73,8 +74,10 @@ class_names = sorted(list(set(dataset[1])))
 X = np.array(dataset[0])
 y = [class_names.index(person) for person in dataset[1]]
 
+
+
 # Get the training and testing datasets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.40, random_state=42)
 
 print("     The training dataset has : " + str(len(X_train)) + " instances\n")
 print("     The testing dataset has : " + str(len(X_test)) + " instances\n")
@@ -82,6 +85,14 @@ print("     All the instances are splitting into " + str(len(class_names)) + " c
 
 for i in range(0, len(class_names), 1):
     print("         - " + class_names[i] + "\n")
+
+# Cross validation
+#print("Executing 10 Fold cross-validation:")
+#scaler = preprocessing.StandardScaler().fit(X)
+#X_scaled = scaler.transform(X)
+#logreg = LogisticRegression(max_iter = 10000)
+#scores = cross_val_score(logreg, X, y, cv = 10)
+#print("Cross-validation scores: {}".format(scores))
 
 # Convert the list of class names into an array to display results
 class_names = np.array(class_names)  # It was useful in a previous version of this code
