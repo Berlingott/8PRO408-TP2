@@ -2,8 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import utilDecisionTreeClassification
 from sklearn import datasets
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
 from sklearn.linear_model import LogisticRegression
 from sklearn import preprocessing
 import pickle
@@ -129,3 +131,54 @@ utilDecisionTreeClassification.plotly_confusion_matrix(performances, class_names
 utilDecisionTreeClassification.plotly_features_and_classification_for_dt_classifier(X_test, y_test, class_names,
                                                                                      decision_tree_classifier,
                                                                                      decision_tree_parameters)
+
+number_of_splits = 10
+skf = StratifiedKFold(n_splits=number_of_splits, shuffle=True, random_state=42)
+mean_fraction = 0.
+mean_number = 0.
+
+for train_index, test_index in skf.split(X, y):
+    X_train, X_test = X[train_index], X[test_index]
+    y_train, y_test = np.array(y)[train_index], np.array(y)[test_index]
+
+    print("     The training dataset has : " + str(len(X_train)) + " instances\n")
+    print("     The testing dataset has : " + str(len(X_test)) + " instances\n")
+    print("     All the instances are splitting into " + str(len(class_names)) + " classes, which are : \n")
+
+    for i in range(0, len(class_names), 1):
+        print("         - " + class_names[i] + "\n")
+
+    print("The decision tree algorithm is executing. Please wait ...")
+
+    # Create and train the decision tree classifier
+    decision_tree_classifier, training_running_time = \
+        utilDecisionTreeClassification.train_decision_tree_classifier(X_train, y_train, decision_tree_parameters)
+
+    # Print information in the console
+    print("The training process of decision tree classifier took : %.8f second" % training_running_time)
+
+    # Test the decision tree classifier
+    y_test_predicted, testing_running_time = \
+        utilDecisionTreeClassification.test_decision_tree_classifier(X_test, decision_tree_classifier)
+
+    # Print information in the console
+    print("The testing process of decision tree classifier took : %.8f second" % testing_running_time)
+
+    # Compute the accuracy classification score : return the fraction of correctly classified samples
+    performances.accuracy_score_fraction = accuracy_score(y_test, y_test_predicted, normalize=True)
+    # Compute the accuracy classification score : return return the number of correctly classified samples
+    performances.accuracy_score_number = accuracy_score(y_test, y_test_predicted, normalize=False)
+
+    # Print information in the console
+    print("\nAccuracy classification score : ")
+    print("         Fraction of correctly classified samples : %.2f" % performances.accuracy_score_fraction)
+    print("         Number of correctly classified samples: %.2f" % performances.accuracy_score_number)
+    mean_fraction = mean_fraction + performances.accuracy_score_fraction
+    mean_number = mean_number + performances.accuracy_score_number
+
+mean_fraction = mean_fraction/number_of_splits
+mean_number = mean_number/number_of_splits
+
+print('Accuracy classification mean score:')
+print(f'    - Mean fraction of correctly classified samples: {mean_fraction}')
+print(f'    - Mean number of correctly classified samples: {mean_number}')
