@@ -88,14 +88,6 @@ print("     All the instances are splitting into " + str(len(class_names)) + " c
 for i in range(0, len(class_names), 1):
     print("         - " + class_names[i] + "\n")
 
-# Cross validation
-#print("Executing 10 Fold cross-validation:")
-#scaler = preprocessing.StandardScaler().fit(X)
-#X_scaled = scaler.transform(X)
-#logreg = LogisticRegression(max_iter = 10000)
-#scores = cross_val_score(logreg, X, y, cv = 10)
-#print("Cross-validation scores: {}".format(scores))
-
 # Convert the list of class names into an array to display results
 class_names = np.array(class_names)  # It was useful in a previous version of this code
 
@@ -131,6 +123,10 @@ utilDecisionTreeClassification.plotly_confusion_matrix(performances, class_names
 utilDecisionTreeClassification.plotly_features_and_classification_for_dt_classifier(X_test, y_test, class_names,
                                                                                      decision_tree_classifier,
                                                                                      decision_tree_parameters)
+
+##########################################################################################################
+#                                  Execute the 10-fold Cross Validation                                  #
+##########################################################################################################
 
 number_of_splits = 10
 skf = StratifiedKFold(n_splits=number_of_splits, shuffle=True, random_state=42)

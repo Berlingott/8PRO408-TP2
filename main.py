@@ -17,8 +17,8 @@ object_list = [person for person in os.listdir('./RawData/')]
 # that are too similar. This in turn generates NaNs for kurtosis
 # and skewness. The dimentionality reduction tool does not support
 # NaNs. For that reason a wider window needs to be applied.
-time_window_length = 5000
-overlap_length = 4900
+time_window_length = 70000
+overlap_length = 69900
 
 extracted_dataset_pathname = "."
 
