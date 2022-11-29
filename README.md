@@ -3,11 +3,8 @@ Second travail pratique: Séries temporelles
 
 # Projet de fin de session
 ## Programme d'analyse et de reconnaissance vocal
-<p align="center">
-
 ![uqac](./readmedata/uqac527x316_transparent.png)
-</p>
-<img align="right" width="100" height="100" src="./readmedata/uqac527x316_transparent.png">
+
 
 ### Réaliser par
 
