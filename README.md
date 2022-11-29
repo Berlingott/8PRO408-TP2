@@ -45,3 +45,25 @@ Plourde, Louis-Gabriel
 Si on veut tester des données de façon isolée, le premier dossier de CleanData (/CleanData/a0007/) contient:  
     - graph.py, pour afficher les pressions acoustiques d'un fichier audio donné.  
     - fourier.py, pour afficher le spectre de fréquences d'un fichier audio donné.  
+
+## Caractéristiques des fichiers et des fichiers
+### Dossier RawData
+Dossier des données étudié tel que téléchargé.
+
+### Dossier CleanDATA
+Dossier des données de RawData une fois trié et avoir rejeté les données aberrantes.
+### Dossier Graphs
+Dossier contenant les graphiques générés par le programme.
+### Dossier readmedata
+Dossier contenant les fichiers nécessaires aux README.md.
+### counter.py
+Utilisé afin de trier et sélectionné notre base de données.
+### csvGeneration
+Génération de csv en fonction des fichiers .wav
+### dimentionalityReduction
+algorithme utilisé pour réduire la dimensionnalité est ExtraTreesClassifier de la librairie scikit-learn.
+### scraper.py
+Fichier utilisé pour télécharger tous les fichiers .gz de notre base de données afin d'éviter le téléchargement manuel de tous les fichiers.
+### utilDecisionTreeClassification.py
+Fichier fourni par M. Julien Maitre. Utilisé pour la classification des données.
+
